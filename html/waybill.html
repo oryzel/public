@@ -1,0 +1,246 @@
+<meta content="text/html; charset=utf-8" http-equiv=Content-Type>
+<style>
+    body {
+        font-family: 'Times New Roman', serif;
+        font-size: 12px;
+        margin: 0 !important
+    }
+
+    .container {
+        width: inherit;
+        background-color: #fff;
+        font-size: 12px;
+        color: #000;
+        position: relative
+    }
+
+    .content {
+        padding: 0 8px
+    }
+
+    .title {
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: .25em
+    }
+
+    .warning {
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+        margin: .25em 0
+    }
+
+    .separator {
+        border-bottom: 1px solid #000
+    }
+
+    .row {
+        overflow: hidden
+    }
+
+    .column1,
+    .column2 {
+        float: left;
+        box-sizing: border-box;
+        width: 50%
+    }
+
+    .column1 {
+        width: 100%
+    }
+
+    .column21 {
+        width: 60% !important
+    }
+
+    .column22 {
+        width: 40% !important
+    }
+
+    .label {
+        font-size: 10px;
+        margin-top: 1em
+    }
+
+    .value {
+        font-size: 10px;
+        font-weight: 700;
+        display: block;
+        display: -webkit-box;
+        line-clamp: 1;
+        -webkit-line-clamp: 1;
+        height: 12px;
+        box-orient: vertical;
+        -webkit-box-orient: vertical
+    }
+
+    .tm {
+        text-align: center;
+        margin-top: 1em;
+        font-size: 8px;
+        width: inherit
+    }
+
+    .address {
+        font-size: 10px;
+        display: block;
+        display: -webkit-box;
+        max-height: 23px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        box-orient: vertical;
+        -webkit-box-orient: vertical
+    }
+
+    .other-address {
+        font-size: 10px;
+        display: block;
+        display: -webkit-box;
+        max-height: 44px;
+        overflow: hidden
+    }
+
+    .status {
+        background-color: #000;
+        color: #fff;
+        position: absolute;
+        right: 1em;
+        padding: 4px 8px 2px 8px;
+        font-weight: 700;
+        margin-top: .5em
+    }
+
+    .cut {
+        display: table;
+        width: inherit;
+        height: 5px
+    }
+
+    .cut-row {
+        display: table-row;
+        padding: 5px
+    }
+
+    .cut-mark-space {
+        display: table-cell;
+        width: 100%;
+        height: 5px
+    }
+
+    .cut-mark {
+        width: 24px;
+        background-color: #000;
+        float: left;
+        height: 5px
+    }
+
+    .grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px
+    }
+
+    .qr {
+        text-align: right
+    }
+
+    .break-word {
+        font-size: 10px;
+        font-weight: 700;
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto
+    }
+</style>
+
+<body style=max-width:8cm;max-height:11.5cm>
+    <div class=cut>
+        <div class=cut-row>
+            <div class=cut-mark></div>
+            <div class=cut-mark-space></div>
+            <div class=cut-mark></div>
+        </div>
+    </div>
+    <div class=container>
+        <div class=title>{{.Data.CarrierName}}</div>
+        <div class=row>
+            <div style="margin:0 0 18px 0">
+                <div style=text-align:center;height:36p><img alt=Barcode src="data:image/png;base64,{{.Barcode .Data.WaybillNo 620 36}}" style=height:36px;width:70%;max-width:70%>
+                    <div class=value style=margin-top:.25em>{{.Data.WaybillNo}}</div>
+                </div>
+            </div>
+        </div>
+        <div class=separator></div>
+        <div class=row style=margin-bottom:0>
+            <div class=column2 style="border-right:1px solid #000">
+                <div style="font-weight:700;text-align:center;padding:.25em .25em;min-height:14px">{{.Data.AdditionalInfo.ZoneID}}</div>
+            </div>
+            <div class=column2>
+                <div style="font-weight:700;text-align:center;padding:.25em .25em;min-height:14px">{{.Data.AdditionalInfo.SortingCode}}</div>
+            </div>
+        </div>
+        <div class=separator></div>
+        <div class=content>
+            <div class=status>STD</div>
+            <div class=row>
+                <div class=column1>
+                    <div class=label>Nomor Order:</div>
+                    <div class=value style=width:7cm>{{.Data.DocNo}}</div>
+                </div>
+            </div>
+            <div class=row>
+                <div class="column2 column21">
+                    <div class=label>Pengirim:</div>
+                    <div class=value style=width:4.4cm>{{.Data.ShopName}}</div>
+                </div>
+                <div class="column2 column22">
+                    <div class=label>Tanggal Order:</div>
+                    <div class=value style=width:3.8cm>{{.Date .Data.PaidAt}}</div>
+                </div>
+            </div>
+            <div class=row>
+                <div class="column2 column21">
+                    <div class=label style=width:7cm>Penerima:</div>
+                    <div class=value style=width:4.4cm>{{.Data.ConsigneeName}}</div>
+                </div>
+                <div class="column2 column22">
+                    <div class=label> </div>
+                    <div class=value style=width:3.8cm>{{.Data.ConsigneePhone}}</div>
+                </div>
+            </div>
+            <div class=address>{{.Data.ConsigneeAddress}}</div>
+            <div class=other-address>{{.Join ", " .Data.ConsigneeDistrict .Data.ConsigneeCity .Data.ConsigneeProvince .Data.ConsigneeCountry .Data.ConsigneeZip}}</div>
+            <div class=row style=margin-bottom:.5em>
+                <div class=column1>
+                    <div class=label>Nominal COD:</div>
+                    <div class=value style=width:7cm>Rp {{.Float64Amount .Data.CODAmount}} ,-</div>
+                </div>
+            </div>
+        </div>
+        <div class=separator></div>
+        <div class=warning>TANPA VIDEO UNBOXING, TIDAK MENERIMA KOMPLAIN.</div>
+        <div class=separator></div>
+        <div class=content>
+            <div class=row>
+                <div class=column2 style=margin-top:1px><img alt=QR src="data:image/png;base64,{{.QR .Data.MarketplaceOrderNumber 50}}" style=width:50px;height:50px>
+                    <div class=break-word>{{.Data.MarketplaceOrderNumber}}</div>
+                </div>
+                <div class=column2 style=margin-top:1px>
+                    <div class=qr style=text-align:right><img alt=QR src="data:image/png;base64,{{.QR .Data.WaybillNo 50}}" style=width:50px;height:50px></div>
+                    <div class=break-word style=text-align:right>{{.Data.WaybillNo}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=tm>FULFILLED BY OXYGEN COMMERCE</div>
+    <div class=cut style=margin-top:0>
+        <div class=cut-row>
+            <div class=cut-mark></div>
+            <div class=cut-mark-space></div>
+            <div class=cut-mark></div>
+        </div>
+    </div>
